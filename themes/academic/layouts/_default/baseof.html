@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+
+    {{ if .Params.math }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0KOVEMea+sfyJcMAcmC1ZSSDTGYo7gyG/l7Vjw//Ax8RklETxDKOK" crossorigin="anonymous">
+    {{ end }}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-left">
+                    <a class="nav-brand" href="{{ "" | relURL }}">{{ site.Params.name }}</a>
+                </div>
+                <div class="nav-right">
+                    {{ range site.Params.links }}
+                        <a class="nav-link" href="{{ .url }}">{{ .name }}</a>
+                    {{ end }}
+                    
+                    <!-- 1. ADD THIS BUTTON -->
+                    <button id="theme-toggle" title="Toggle theme">◑</button>
+                </div>
+            </nav>
+        </header>
+        
+        <main>
+            {{ block "main" . }}{{ end }}
+        </main>
+    </div>
+
+    <!-- 2. ADD THIS SCRIPT LINK -->
+    <script src="{{ "js/main.js" | relURL }}"></script>
+
+    {{ if .Params.math }}
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzYCvuGGv4iDDQS2jsdGreOKLVKgIiDAKIl" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                // A list of delimiters to look for
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                // This is the key fix
+                throwOnError : false
+            });
+        });
+    </script>
+    {{ end }}
+</body>
+</html>
