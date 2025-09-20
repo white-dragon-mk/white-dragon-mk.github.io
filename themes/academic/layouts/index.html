@@ -51,15 +51,16 @@
   {{ end }}
 </section>
 
+<!--
 <section id="notes">
   <h2>Lecture Notes</h2>
   <ul class="notes-list">
-    <!-- Loop through each entry in data/notes.toml -->
+     Loop through each entry in data/notes.toml 
     {{ range site.Data.notes.entry }}
     <li>
       <div class="note-title">
         <a href="{{ .url }}">{{ .title }}</a>
-        <!-- Loop through the extra links like [pdf] -->
+         Loop through the extra links like [pdf] 
         {{ range .links }}
           <a class="note-link" href="{{ .url }}">[{{ .name }}]</a>
         {{ end }}
@@ -68,46 +69,25 @@
     </li>
     {{ end }}
   </ul>
-</section>
+</section>-->
+
 <section id="olympiad">
-  <h2>Olympiad</h2>
-  <div class="olympiad-container">
-    
-    <!-- Column 1: The Content -->
-    <div class="olympiad-content">
-      <ul class="olympiad-list">
-        {{ range site.Data.olympiad.entry }}
-        <li>
-          <div class="note-title">
-            <a href="{{ .url }}">{{ .title }}</a>
-            {{ range .links }}
-              <a class="note-link" href="{{ .url }}">[{{ .name }}]</a>
-            {{ end }}
-          </div>
-          <!-- The 'markdownify' filter will turn your bullet points into a proper list -->
-          <div class="note-description">{{ .description | markdownify }}</div>
-        </li>
-        {{ end }}
-      </ul>
-    </div>
-
-    <!-- Column 2: The Graphic -->
-    <div class="olympiad-graphic">
-      <!-- We will pull the image path from config.toml -->
-<img src="{{ site.Params.olympiad_graphic | relURL }}" alt="Olympiad Graphic">
-    </div>
-
-  </div>
-</section>
-</section>
-
-<!-- ADD THIS NEW WRITING SECTION -->
-<section id="writing">
-  {{ with site.GetPage "/writing.md" }}
+  {{ with site.GetPage "/olympiad.md" }}
     <h2>{{ .Title }}</h2>
-    <div class="writing-content">
-      {{ .Content }}
+    <div class="olympiad-container">
+      
+      <!-- Column 1: The Content from your new markdown file -->
+      <div class="olympiad-content">
+        {{ .Content }}
+      </div>
+  
+      <!-- Column 2: The Graphic (This remains unchanged) -->
+      <div class="olympiad-graphic">
+        <img src="{{ site.Params.olympiad_graphic | relURL }}" alt="Olympiad Graphic">
+      </div>
+  
     </div>
   {{ end }}
 </section>
+
 {{ end }}

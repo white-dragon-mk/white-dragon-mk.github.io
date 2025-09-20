@@ -28,7 +28,6 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.2s, color 0.2s;
-    /* This pushes the main content down to account for the fixed header's height */
     padding-top: 4rem; 
 }
 .container {
@@ -39,14 +38,11 @@ body {
 
 /* --- Top Navigation Header --- */
 header {
-    /* --- Core Sticky Header Properties --- */
-    position: fixed; /* Lifts the header out of the page flow */
-    top: 0;          /* Sticks it to the top */
-    left: 0;         /* Makes it span the full width */
-    width: 100%;     /* Makes it span the full width */
-    z-index: 1000;   /* Ensures it stays on top of other content */
-
-    /* --- Styling --- */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     background-color: var(--header-bg);
     border-bottom: 1px solid var(--header-border);
     padding: -0.8rem 0;
@@ -73,8 +69,6 @@ header nav {
 .nav-link:hover {
     color: var(--heading-color);
 }
-
-/* The Toggle Button Style */
 #theme-toggle {
     background: none;
     border: none;
@@ -115,8 +109,10 @@ header nav {
     text-decoration: underline;
 }
 
-/* --- Notes Section (New Multi-Column Version) --- */
-#notes h2, #writing h2 {
+
+/* --- Generic Section Header Styles --- */
+/* Groups all main section titles for consistent styling */
+#about h2, #notes h2, #olympiad h2, #writing h2, #education h2 {
     font-family: "Georgia", serif;
     font-size: 1.5rem;
     color: var(--heading-color);
@@ -126,12 +122,19 @@ header nav {
     margin-bottom: 1.5rem;
 }
 
-.notes-content, .writing-content {
-    /* Main container for the notes text and lists */
+
+/* --- Shared Content Styles (Notes, Olympiad, Writing) --- */
+/* Applies to the content rendered from your markdown files */
+.notes-content,
+.olympiad-content,
+.writing-content {
+    line-height: 1.6; /* Ensure consistent line spacing */
 }
 
-/* Style for the subheadings like "Undergraduate" */
-.notes-content h3, .writing-content h3 {
+/* Subheadings (h3) within content sections */
+.notes-content h3,
+.olympiad-content h3,
+.writing-content h3 {
     font-family: "Georgia", serif;
     font-size: 1.2rem;
     margin-top: 2rem;
@@ -139,146 +142,61 @@ header nav {
     color: var(--heading-color);
 }
 
-/* The multi-column magic for the lists */
-.notes-content ul {
-    list-style-type: none;
-    padding-left: 0;
-    /* Create two columns */
-    columns: 2;
-    /* Adjust the gap between columns */
-    column-gap: 2rem;
+/* Unordered lists (ul) */
+.notes-content ul,
+.olympiad-content ul,
+.writing-content ul {
+    list-style-type: circle;
+    padding-left: 20px;
+    columns: 1; /* Ensures single column layout */
 }
 
-/* On smaller screens, go back to a single column */
-@media (max-width: 768px) {
-    .notes-content ul, .writing-content ul {
-        columns: 1;
-    }
-}
-
-.notes-content li, .writing-content li {
-    margin-bottom: 0.5rem;
-    /* Prevents a list item from being split across columns */
+/* List items (li) */
+.notes-content li,
+.olympiad-content li,
+.writing-content li {
+    margin-bottom: 0.75rem;
     break-inside: avoid;
 }
 
-.notes-content a, .writing-content a {
+/* Links (a) */
+.notes-content a,
+.olympiad-content a,
+.writing-content a {
     text-decoration: none;
     color: var(--link-color);
 }
-.notes-content a:hover {
+.notes-content a:hover,
+.olympiad-content a:hover,
+.writing-content a:hover {
     text-decoration: underline;
 }
 
-/* --- Notes Section --- */
-#notes h2 {
-    font-family: "Georgia", serif;
-    font-size: 1.5rem;
-    color: var(--heading-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-    margin-top: 4rem; /* Add space above the new section */
-    margin-bottom: 1rem;
-}
 
-.notes-list {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.notes-list li {
-    margin-bottom: 1.5rem;
-}
-
-.note-title a {
-    text-decoration: none;
-    font-weight: bold;
-    color: var(--link-color);
-}
-
-.note-title a:hover {
-    text-decoration: underline;
-}
-
-/* Style for the [pdf], [arXiv] links */
-.note-link {
-    font-size: 0.9rem;
-    font-weight: normal;
-    margin-left: 0.75rem;
-}
-
-.note-description {
-    font-style: italic;
-    color: var(--text-color);
-    margin-top: 0.25rem;
-    margin-left: 0.1rem; /* Slight indent */
-}
-
-/* Add this rule */
-#about h2 {
-    font-family: "Georgia", serif;
-    font-size: 1.5rem;
-    color: var(--heading-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-/* --- Olympiad Section --- */
-#olympiad h2 {
-    font-family: "Georgia", serif;
-    font-size: 1.5rem;
-    color: var(--heading-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-    margin-top: 4rem;
-    margin-bottom: 1rem;
-}
-
+/* --- Olympiad Section Specifics --- */
+/* These rules control the unique two-column layout with the graphic */
 .olympiad-container {
     display: flex;
-    gap: 2rem; /* Space between content and graphic */
-    flex-wrap: wrap; /* Stack on small screens */
+    gap: 2rem;
+    flex-wrap: wrap;
 }
-
-/* The list of notes on the left */
 .olympiad-content {
-    flex: 2; /* Take up 2/3 of the space */
-    min-width: 300px; /* Prevent it from getting too squished */
+    flex: 2;
+    min-width: 300px;
 }
-
-/* The graphic on the right */
 .olympiad-graphic {
-    flex: 1; /* Take up 1/3 of the space */
+    flex: 1;
     display: flex;
-    align-items: center; /* Vertically center the image */
-    justify-content: center; /* Horizontally center the image */
+    align-items: center;
+    justify-content: center;
 }
-
 .olympiad-graphic img {
     max-width: 100%;
     height: auto;
 }
 
-/* Re-using styles from the notes section for consistency */
-.olympiad-list {
-    list-style-type: none;
-    padding-left: 0;
-}
-.olympiad-list li {
-    margin-bottom: 1.5rem;
-}
-/* The description class now applies to the div wrapping the markdown content */
-.olympiad-list .note-description p {
-    margin-top: 0.25rem;
-    margin-bottom: 0.5rem;
-}
-.olympiad-list .note-description ul {
-    margin: 0;
-    padding-left: 1.2rem;
-}
 
-/* --- Blog List Page --- */
+/* --- Blog & Post Styles --- */
 .blog-list {
     list-style: none;
     padding: 0;
@@ -292,10 +210,8 @@ header nav {
     text-decoration: none;
     font-weight: bold;
 }
-
-/* --- Single Post Page --- */
 .post {
-    max-width: 960px; /* Or your container width */
+    max-width: 960px;
     margin: 0 auto;
 }
 .post header {
@@ -304,7 +220,7 @@ header nav {
 }
 .post h1 {
     font-family: "Georgia", serif;
-    font-size: 2.5rem; /* Larger title for posts */
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
     color: var(--heading-color);
 }
@@ -316,15 +232,11 @@ header nav {
 .post-content {
     font-size: 1.1rem;
 }
-
-/* Styling for code blocks */
 .post-content pre {
     padding: 1rem;
     border-radius: 5px;
-    overflow-x: auto; /* Allow horizontal scrolling for long code lines */
+    overflow-x: auto;
 }
-
-/* Styling for images in posts */
 .post-content img {
     max-width: 100%;
     height: auto;
@@ -333,37 +245,27 @@ header nav {
     border-radius: 5px;
 }
 
-/* --- Education Section (New Version) --- */
+/* --- Education Section --- */
 #education {
-    margin-top: 2.5rem; /* Space between bio and education */
+    margin-top: 2.5rem;
 }
-#education h2 {
-    font-family: "Georgia", serif;
-    font-size: 1.5rem;
-    color: var(--heading-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
 .education-list {
     list-style: none;
     padding: 0;
 }
 .education-list li {
-    display: flex; /* This is the key to aligning the icon and text */
-    align-items: flex-start; /* Aligns icon to the top of the text */
+    display: flex;
+    align-items: flex-start;
     margin-bottom: 1rem;
 }
 .education-list li i {
-    margin-top: 0.25rem; /* Nudge the icon down slightly to align with text */
+    margin-top: 0.25rem;
     margin-right: 1rem;
     color: var(--nav-link-color);
-    width: 1.2em; /* Give icon a fixed width to align all text blocks */
+    width: 1.2em;
 }
-
 .course-details {
-    flex: 1; /* Allows the text to take up the remaining space */
+    flex: 1;
 }
 .course-title {
     font-weight: bold;
