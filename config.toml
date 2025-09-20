@@ -1,5 +1,5 @@
 baseURL = "/"
-title = "Your Name - Academic Website"
+title = "Maja Kokot"
 theme = "academic"
 
 [markup]
@@ -21,7 +21,7 @@ theme = "academic"
 
 [params]
   # For the header nav bar
-  name = "Your Name"
+  name = "Maja Kokot"
 
   # For the "About Me" section
   avatar = "img/profile.jpg"

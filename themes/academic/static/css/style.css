@@ -1,20 +1,24 @@
 /* --- Color Variables --- */
 :root {
-    --bg-color: #fdfdfd;
+    --bg-color: #f5f5f5;
     --text-color: #333;
     --heading-color: #111;
     --link-color: #337ab7;
     --border-color: #eee;
     --nav-link-color: #555;
+    --header-bg: #fff;
+    --header-border: #e5e5e5;
 }
 
 body.dark-mode {
-    --bg-color: #1a1a1a;
+    --bg-color: #282a36;
     --text-color: #ccc;
     --heading-color: #eee;
     --link-color: #8ab4f8;
     --border-color: #333;
     --nav-link-color: #aaa;
+    --header-bg: #252525;
+    --header-border: #333;
 }
 
 /* --- Basic Body and Container Styles --- */
@@ -23,20 +27,36 @@ body {
     line-height: 1.6;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.2s, color 0.2s; /* Smooth transition */
+    transition: background-color 0.2s, color 0.2s;
+    /* This pushes the main content down to account for the fixed header's height */
+    padding-top: 4rem; 
 }
 .container {
-    max-width: 800px;
-    margin: 2rem auto;
+    max-width: 1024px;
+    margin: 1rem auto;
     padding: 0 1rem;
 }
 
 /* --- Top Navigation Header --- */
+header {
+    /* --- Core Sticky Header Properties --- */
+    position: fixed; /* Lifts the header out of the page flow */
+    top: 0;          /* Sticks it to the top */
+    left: 0;         /* Makes it span the full width */
+    width: 100%;     /* Makes it span the full width */
+    z-index: 1000;   /* Ensures it stays on top of other content */
+
+    /* --- Styling --- */
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--header-border);
+    padding: -0.8rem 0;
+    transition: background-color 0.2s, border-color 0.2s;
+}
 header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 .nav-brand {
     font-family: "Georgia", serif;
@@ -95,6 +115,61 @@ header nav {
     text-decoration: underline;
 }
 
+/* --- Notes Section (New Multi-Column Version) --- */
+#notes h2, #writing h2 {
+    font-family: "Georgia", serif;
+    font-size: 1.5rem;
+    color: var(--heading-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.notes-content, .writing-content {
+    /* Main container for the notes text and lists */
+}
+
+/* Style for the subheadings like "Undergraduate" */
+.notes-content h3, .writing-content h3 {
+    font-family: "Georgia", serif;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--heading-color);
+}
+
+/* The multi-column magic for the lists */
+.notes-content ul {
+    list-style-type: none;
+    padding-left: 0;
+    /* Create two columns */
+    columns: 2;
+    /* Adjust the gap between columns */
+    column-gap: 2rem;
+}
+
+/* On smaller screens, go back to a single column */
+@media (max-width: 768px) {
+    .notes-content ul, .writing-content ul {
+        columns: 1;
+    }
+}
+
+.notes-content li, .writing-content li {
+    margin-bottom: 0.5rem;
+    /* Prevents a list item from being split across columns */
+    break-inside: avoid;
+}
+
+.notes-content a, .writing-content a {
+    text-decoration: none;
+    color: var(--link-color);
+}
+.notes-content a:hover {
+    text-decoration: underline;
+}
+
 /* --- Notes Section --- */
 #notes h2 {
     font-family: "Georgia", serif;
@@ -137,6 +212,16 @@ header nav {
     color: var(--text-color);
     margin-top: 0.25rem;
     margin-left: 0.1rem; /* Slight indent */
+}
+
+/* Add this rule */
+#about h2 {
+    font-family: "Georgia", serif;
+    font-size: 1.5rem;
+    color: var(--heading-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 /* --- Olympiad Section --- */
@@ -210,7 +295,7 @@ header nav {
 
 /* --- Single Post Page --- */
 .post {
-    max-width: 800px; /* Or your container width */
+    max-width: 960px; /* Or your container width */
     margin: 0 auto;
 }
 .post header {
@@ -246,4 +331,44 @@ header nav {
     display: block;
     margin: 2rem auto;
     border-radius: 5px;
+}
+
+/* --- Education Section (New Version) --- */
+#education {
+    margin-top: 2.5rem; /* Space between bio and education */
+}
+#education h2 {
+    font-family: "Georgia", serif;
+    font-size: 1.5rem;
+    color: var(--heading-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.education-list {
+    list-style: none;
+    padding: 0;
+}
+.education-list li {
+    display: flex; /* This is the key to aligning the icon and text */
+    align-items: flex-start; /* Aligns icon to the top of the text */
+    margin-bottom: 1rem;
+}
+.education-list li i {
+    margin-top: 0.25rem; /* Nudge the icon down slightly to align with text */
+    margin-right: 1rem;
+    color: var(--nav-link-color);
+    width: 1.2em; /* Give icon a fixed width to align all text blocks */
+}
+
+.course-details {
+    flex: 1; /* Allows the text to take up the remaining space */
+}
+.course-title {
+    font-weight: bold;
+}
+.course-institution {
+    font-style: italic;
+    color: var(--nav-link-color);
 }
